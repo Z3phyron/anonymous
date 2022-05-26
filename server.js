@@ -24,7 +24,7 @@ app.use("/api/secret", require("./routes/secret"));
 
 
 // Serve frontend
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
   app.get("*", (req, res) =>

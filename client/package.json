@@ -1,6 +1,7 @@
 {
   "name": "client",
   "private": true,
+  "proxy": "https://dsecret.herokuapp.com",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

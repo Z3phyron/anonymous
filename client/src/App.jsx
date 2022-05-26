@@ -17,7 +17,11 @@ function App() {
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/signin" exact element={<SignIn />} />
         <Route path="/forgotPassword" exact element={<ForgotPassword />} />
-        <Route path="/reset/:token/password" exact element={<ResetPassword />} />
+        <Route
+          path="/reset/:token/password"
+          exact
+          element={<ResetPassword />}
+        />
         <Route path="/mail/:id/verify/:token" exact element={<VerifyMail />} />
 
         <Route path="/:userId" exact element={<AddSecrets />} />
@@ -26,6 +30,9 @@ function App() {
           <Route path="/confessions" exact element={<Secrets />} />
         </Route>
       </Routes>
+      <footer>
+        developed by <a href="https://github.com/Z3phyron">Z3phyron</a>
+      </footer>
     </div>
   );
 }

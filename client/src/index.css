@@ -25,3 +25,12 @@ body {
   font-family: 'Inconsolata', monospace;
   background: var(--body);
 }
+
+footer {
+  color: hsla(0, 1%, 38%, 0.612);
+
+}
+
+footer a {
+  color: hsl(0, 0%, 100%);
+}

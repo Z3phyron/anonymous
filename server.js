@@ -3,7 +3,8 @@ const express = require("express");
 const colors = require("colors");
 const cors = require("cors");
 const { errorHandler } = require("./middleware/error");
-const connectDB = require("./config/db");
+const connectDB = require("./config/db")
+const path = require("path")
 const port = process.env.PORT || 5000;
 
 

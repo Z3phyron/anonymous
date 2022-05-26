@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "/api/auth/";
-const UPDATE_API_URL = "/api/user/";
+const API_URL = "https://dsecret.herokuapp.com/api/auth/";
+const UPDATE_API_URL = "https://dsecret.herokuapp.com/api/user/";
 
 
 // Register user

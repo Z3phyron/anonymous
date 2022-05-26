@@ -13,7 +13,7 @@ const override = css`
   border-color: var(--green);
 `;
 
-const API_URL = "http://localhost:5000/api/auth/";
+const API_URL = "https://dsecret.herokuapp.com/api/auth/";
 
 const VerifyMail = () => {
   const [loading, setLoading] = useState(true);

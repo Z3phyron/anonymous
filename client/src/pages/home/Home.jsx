@@ -13,7 +13,7 @@ const Home = (props) => {
   const { user, isLoading } = useSelector((state) => state.auth);
   console.log(user);
 
-  let url = `http://localhost:3000/${user?.user?.userName}`;
+  let url = `https://anonymous-omega.vercel.app/${user?.user?.userName}`;
 
   const dispatch = useDispatch();
 

@@ -25,6 +25,7 @@ function App() {
         <Route path="/:userId" exact element={<AddSecrets />} />
         <Route path="/" exact element={<ProtectedRoutes />}>
           <Route path="/" exact element={<Home />} />
+          <Route path="/:userId" exact element={<AddSecrets />} />
           <Route path="/confessions" exact element={<Secrets />} />
         </Route>
       </Routes>

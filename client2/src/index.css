@@ -1,13 +1,36 @@
-body {
+@import url(https://fonts.googleapis.com/css2?family=Inconsolata:wght@100;200;300;400;500;600;800;900&display=swap);
+
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --light-blue: rgba(30, 132, 216, 0.379);
+  --blue: #1e84d8;
+  --white: #fcfcfc;
+  --black: #050505;
+  --green: #fff;
+  --gray: rgba(243, 236, 236, 0.513);
+  --body: rgb(0, 0, 0);
+}
+
+
+
+body {
+  font-family: 'Inconsolata', monospace;
+  background: var(--body);
+}
+
+footer {
+  color: hsla(0, 1%, 38%, 0.612);
+
+}
+
+footer a {
+  color: hsl(0, 0%, 100%);
 }

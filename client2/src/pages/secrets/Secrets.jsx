@@ -1,98 +1,50 @@
 import styled from "styled-components";
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import FormikControl from "../../utils/formik/FormikControl";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { css } from "@emotion/react";
-import PulseLoader from "react-spinners/PulseLoader";
-import { createSecret } from "../../features/secrets/secrettSlice";
+import { Link } from "react-router-dom";
+import SecretList from "./SecretList";
+import { getSecrets } from "../../features/secrets/secrettSlice";
 
+const Secrets = (props) => {
+  const [conf, setConf] = useState("");
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: var(--black);
-`;
-
-const AddSecrets = (props) => {
-  const [userName, setUserName] = useState("");
-    let [color, setColor] = useState("#000");
-    const initialValues = {
-      secret: "",
-    
-    };
-
-  const params = useParams()
   const dispatch = useDispatch();
-  
-    useEffect(() => {
-      const userId = params.userId
-      setUserName(userId)
-      console.log(userName)
-    }, []);
 
-    const { isLoading } = useSelector((state) => state.secret);
-    // console.log(user);
+  const { secrets, isLoading, isSuccess } = useSelector(
+    (state) => state.secret
+  );
 
-    const validationSchema = Yup.object({
-      secret: Yup.string().required("Required"),
-    });
-
-    const onSubmit = (values) => {
-      console.log("Form data", values);
-      dispatch(createSecret({values, userName}));
-    };
-
-
-  
-
-
+  useEffect(() => {
+    dispatch(getSecrets());
+  }, []);
 
   return (
     <Cont>
       <Wrap>
         <Header>
-          <h2 className="user">Confess</h2>
-          <p>confess to user</p>
+          <h2 className="user">Confessions</h2>
+          <p>
+            👇 Scroll 👇 down to check out the confessions that you have
+            received
+          </p>
         </Header>
+        {secrets ? (
+          <Box>
+            <SecretList secrets={secrets} />
+          </Box>
+        ) : (
+          <Box>
+            <NoSecret>
+              <p>
+                Ouch! 😅 No one has sent you a message
+                <br /> Share your profile link and check back later again!
+              </p>
+            </NoSecret>
+          </Box>
+        )}
 
-        <Box>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => {
-              return (
-                <Form>
-                  <FormikControl
-                    control="textarea"
-                    type="tet"
-                    label="Say Something About Me"
-                    name="secret"
-                  />
-
-                  <Button type="submit" disabled={!formik.isValid}>
-                    {isLoading ? (
-                      <PulseLoader
-                        color={color}
-                        loading={true}
-                        css={override}
-                        size={10}
-                      />
-                    ) : (
-                      <>Submit</>
-                    )}
-                  </Button>
-                </Form>
-              );
-            }}
-          </Formik>
-        </Box>
-
-        <Cta to="/confessions">Go Back</Cta>
+        <Cta to="/">Go Back</Cta>
       </Wrap>
     </Cont>
   );
@@ -106,7 +58,7 @@ const Cont = styled.nav`
   padding: 5%;
 `;
 const Box = styled.div`
-  margin-bottom: 30px;
+  //
 `;
 const NoSecret = styled.div`
   /* From https://css.glass */
@@ -215,14 +167,4 @@ const Cta = styled(Link)`
   }
 `;
 
-const Button = styled.button`
-  outline: none;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background: var(--green);
-  color: var(--black);
-`;
-
-
-export default AddSecrets;
+export default Secrets;

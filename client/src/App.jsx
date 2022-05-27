@@ -4,7 +4,6 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
-import VerifyMail from "./pages/auth/VerifyMail";
 import Home from "./pages/home/Home";
 import AddSecrets from "./pages/secrets/AddSecrets";
 import Secrets from "./pages/secrets/Secrets";
@@ -22,8 +21,7 @@ function App() {
           exact
           element={<ResetPassword />}
         />
-        <Route path="/mail/:id/verify/:token" exact element={<VerifyMail />} />
-
+       
         <Route path="/:userId" exact element={<AddSecrets />} />
         <Route path="/" exact element={<ProtectedRoutes />}>
           <Route path="/" exact element={<Home />} />

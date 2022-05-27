@@ -45,22 +45,22 @@ const SignUpUser = asyncHandler(async (req, res) => {
 
     await user.save();
 
-    //create email verification token
-    const mailToken = await new Token({
-      userId: user._id,
-      token: crypto.randomBytes(32).toString("hex"),
-    }).save();
+    // //create email verification token
+    // const mailToken = await new Token({
+    //   userId: user._id,
+    //   token: crypto.randomBytes(32).toString("hex"),
+    // }).save();
     //
 
-    //email verification link
-    const BaseUrl = process.env.BASE_URL;
-    const userId = user._id;
-    const vToken = mailToken.token;
-    const url = `${BaseUrl}mail/${userId}/verify/${vToken}`;
-    //
+    // //email verification link
+    // const BaseUrl = process.env.BASE_URL;
+    // const userId = user._id;
+    // const vToken = mailToken.token;
+    // const url = `${BaseUrl}mail/${userId}/verify/${vToken}`;
+    // //
 
-    // Send the email
-    await SendMail(email, "Verify Email", url);
+    // // Send the email
+    // await SendMail(email, "Verify Email", url);
     //
 
     const token = user.generateAuthToken();
@@ -98,35 +98,35 @@ const SignInUser = asyncHandler(async (req, res) => {
     }
 
     // check to see if userEmail is verified
-    if (!existingUser.verified) {
-      // find verification  token
-      let token = await Token.findOne({
-        userId: existingUser._id,
-      });
+    // if (!existingUser.verified) {
+    //   // find verification  token
+    //   let token = await Token.findOne({
+    //     userId: existingUser._id,
+    //   });
 
-      if (!token) {
-        //create email verification token
-        const mailToken = await new Token({
-          userId: existingUser._id,
-          token: crypto.randomBytes(32).toString("hex"),
-        }).save();
-        //
+    //   if (!token) {
+    //     //create email verification token
+    //     const mailToken = await new Token({
+    //       userId: existingUser._id,
+    //       token: crypto.randomBytes(32).toString("hex"),
+    //     }).save();
+    //     //
 
-        //email verification link
-        const BaseUrl = process.env.BASE_URL;
-        const userId = existingUser._id;
-        const vToken = mailToken.token;
-        const url = `${BaseUrl}mail/${userId}/verify/${vToken}`;
-        const email = existingUser.email;
-        //
+    //     //email verification link
+    //     const BaseUrl = process.env.BASE_URL;
+    //     const userId = existingUser._id;
+    //     const vToken = mailToken.token;
+    //     const url = `${BaseUrl}mail/${userId}/verify/${vToken}`;
+    //     const email = existingUser.email;
+    //     //
 
-        // Send the email
-        await SendMail(email, "Verify Email", url);
-        //
-      }
-      res.status(400);
-      throw new Error("an email has been sent to ur account");
-    }
+    //     // Send the email
+    //     await SendMail(email, "Verify Email", url);
+    //     //
+    //   }
+    //   res.status(400);
+    //   throw new Error("an email has been sent to ur account");
+    // }
 
     existingUser.password = undefined;
     existingUser._v = undefined;

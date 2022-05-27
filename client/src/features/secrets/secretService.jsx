@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://dsecret.herokuapp.com//api/secret/";
+const API_URL = "/api/secret/";
 
 // Create new post
 const createSecret = async ({values, userName}) => {

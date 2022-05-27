@@ -39,7 +39,6 @@ const SignUpUser = asyncHandler(async (req, res) => {
     let user = new User({
       userName,
       email,
-      gender,
       password: hashedPassword,
     });
 

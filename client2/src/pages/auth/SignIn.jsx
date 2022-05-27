@@ -116,7 +116,9 @@ const Wrap = styled.div`
   box-shadow: 0 4px 30px rgba(64, 64, 64, 0.192);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-
+  @media (max-width: 700px) {
+    width: 100%;
+  }
   padding: 30px;
 `;
 

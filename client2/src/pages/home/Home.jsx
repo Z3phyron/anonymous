@@ -13,7 +13,7 @@ const Home = (props) => {
   const { user, isLoading } = useSelector((state) => state.auth);
   console.log(user);
 
-  let url = `https://anonymous-omega.vercel.app/${user?.user?.userName}`;
+  let url = `https://anonymous-sigma.vercel.app/${user?.user?.userName}`;
 
   const dispatch = useDispatch();
 
@@ -64,6 +64,10 @@ const Wrap = styled.div`
   -webkit-backdrop-filter: blur(5px);
   position: relative;
   padding: 50px 30px;
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 
   .signout {
     position: absolute;

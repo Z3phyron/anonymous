@@ -24,21 +24,21 @@ app.use("/api/secret", require("./routes/secret"));
 
 
 // Serve frontend
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client2/build")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client2/build")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(
-      path.resolve(__dirname, "../", "client2", "build", "index.html")
-    )
-  );
-} else {
-  app.get("/", (req, res) => res.send("Please set to production"));
-}
+//   app.get("*", (req, res) =>
+//     res.sendFile(
+//       path.resolve(__dirname, "../", "client2", "build", "index.html")
+//     )
+//   );
+// } else {
+//   app.get("/", (req, res) => res.send("Please set to production"));
+// }
 
-// app.get("/", (req, res) => {
-//   res.send(path.join(__dirname, "/dist/index.html"));
-// });
+app.get("/", (req, res) => {
+  res.send(path.join(__dirname, "./client2/build/index.html"));
+});
 
 //
 

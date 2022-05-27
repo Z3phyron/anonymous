@@ -97,6 +97,10 @@ const Wrap = styled.div`
   width: 100%;
   margin: auto;
 
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+
   @media (max-width: 900px) {
     width: 100%;
     padding: 20px;

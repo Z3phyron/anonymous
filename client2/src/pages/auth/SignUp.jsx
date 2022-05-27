@@ -16,7 +16,7 @@ const override = css`
 `;
 
 const SignUp = () => {
-  let [color, setColor] = useState("#ffffff");
+  let [color, setColor] = useState("#000");
   const initialValues = {
     userName: "",
     email: "",
@@ -123,6 +123,10 @@ const Wrap = styled.div`
   -webkit-backdrop-filter: blur(5px);
 
   padding: 30px;
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const Text = styled.div`

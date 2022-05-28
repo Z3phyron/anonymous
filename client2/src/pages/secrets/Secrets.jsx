@@ -1,23 +1,29 @@
 import styled from "styled-components";
-
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import SecretList from "./SecretList";
 import { getSecrets } from "../../features/secrets/secrettSlice";
 
 const Secrets = (props) => {
-  const [conf, setConf] = useState("");
-
   const dispatch = useDispatch();
 
-  const { secrets, isLoading, isSuccess } = useSelector(
-    (state) => state.secret
-  );
+  const {
+    secrets,
+    // isLoading,
+    isError,
+    isSuccess,
+    message,
+  } = useSelector((state) => state.secret);
 
   useEffect(() => {
     dispatch(getSecrets());
   }, []);
+
+    if (message) {
+      toast.error(message);
+    }
 
   return (
     <Cont>

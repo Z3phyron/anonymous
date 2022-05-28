@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { css } from "@emotion/react";
 import PulseLoader from "react-spinners/PulseLoader";
+import { toast } from "react-toastify";
 
 const override = css`
   display: block;
@@ -18,7 +19,7 @@ const API_URL = "https://dsecret.herokuapp.com/api/auth/";
 const VerifyMail = () => {
   const [loading, setLoading] = useState(true);
   const [isVerified, setIsVerified] = useState(false);
-  let [color, setColor] = useState("#ffffff");
+   let color = "#000";
 
   const param = useParams();
 

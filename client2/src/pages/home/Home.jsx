@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 
 import { IoCopyOutline } from "react-icons/io5";
 import { reset, SignOut } from "../../features/auth/authSlice";
+import { toast } from "react-toastify";
 
 const Home = (props) => {
   const clipboard = useClipboard();
 
-  const { user, isLoading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   console.log(user);
 
   let url = `https://anonymous-sigma.vercel.app/${user?.user?.userName}`;

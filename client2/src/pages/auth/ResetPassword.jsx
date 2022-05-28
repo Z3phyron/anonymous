@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  useParams,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -11,13 +7,8 @@ import FormikControl from "../../utils/formik/FormikControl";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import PulseLoader from "react-spinners/PulseLoader";
-import {
-  verifyToken,
-  resetPassword,
-
-} from "../../features/auth/authSlice";
+import { verifyToken, resetPassword, reset } from "../../features/auth/authSlice";
 import { css } from "@emotion/react";
-
 
 const override = css`
   display: block;
@@ -26,11 +17,11 @@ const override = css`
 `;
 
 const ResetPassword = () => {
-  let [color, setColor] = useState("#000");
-  let [mail, setMail] = useState("");
-    const { user, email, isLoading, isError, isSuccess, message } = useSelector(
-      (state) => state.auth
-    );
+  let color = "#000";
+
+  const { user, email, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
   useEffect(() => {
     if (isError) {
       toast.error(message);
@@ -39,39 +30,36 @@ const ResetPassword = () => {
     const token = param.token;
     if (token) {
       dispatch(verifyToken(token));
-      setMail(email)
     }
-
-   
   }, []);
 
-
-
   const initialValues = {
-     email,
+    email,
     password: "",
     confirmPassword: "",
   };
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const param = useParams();
 
   const validationSchema = Yup.object({
-
     email: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
     confirmPassword: Yup.string().required("Required"),
   });
 
   const onSubmit = (values) => {
-  
     console.log("Form data", values);
     dispatch(resetPassword(values));
+    dispatch(reset());
     if (isSuccess) {
       return <Navigate to="/signin" />;
     }
   };
+
+    if (message) {
+      toast.error(message);
+    }
 
   if (user?.msg === "Reset Successful") {
     return <Navigate to="/signin" />;

@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../utils/formik/FormikControl";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { signUp } from "../../features/auth/authSlice";
+import { signUp, reset } from "../../features/auth/authSlice";
 import { Link, Navigate } from "react-router-dom";
 import { css } from "@emotion/react";
+import { toast } from "react-toastify";
 import PulseLoader from "react-spinners/PulseLoader";
 
 const override = css`
@@ -16,7 +17,7 @@ const override = css`
 `;
 
 const SignUp = () => {
-  let [color, setColor] = useState("#000");
+ let color = "#000";
   const initialValues = {
     userName: "",
     email: "",
@@ -25,7 +26,9 @@ const SignUp = () => {
 
     const dispatch = useDispatch();
 
-    const { user, isLoading } = useSelector((state) => state.auth);
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
+      (state) => state.auth
+    );
     console.log(user);
 
   const validationSchema = Yup.object({
@@ -37,7 +40,12 @@ const SignUp = () => {
   const onSubmit = (values) => {
     console.log("Form data", values);
     dispatch(signUp(values))
+    dispatch(reset())
   };
+
+  if (message) {
+    toast.error(message);
+  }
 
     if (user?.token) {
       return <Navigate to="/" />;

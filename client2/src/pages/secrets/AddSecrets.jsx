@@ -4,8 +4,9 @@ import * as Yup from "yup";
 import FormikControl from "../../utils/formik/FormikControl";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { css } from "@emotion/react";
+import { toast } from "react-toastify";
 import PulseLoader from "react-spinners/PulseLoader";
 import { createSecret } from "../../features/secrets/secrettSlice";
 
@@ -18,10 +19,9 @@ const override = css`
 
 const AddSecrets = (props) => {
   const [userName, setUserName] = useState("");
-    let [color, setColor] = useState("#000");
+   let color = "#000";
     const initialValues = {
       secret: "",
-    
     };
 
   const params = useParams()
@@ -33,7 +33,7 @@ const AddSecrets = (props) => {
       console.log(userName)
     }, []);
 
-    const { isLoading } = useSelector((state) => state.secret);
+    const { isLoading, isSuccess, message } = useSelector((state) => state.secret);
     // console.log(user);
 
     const validationSchema = Yup.object({
@@ -42,10 +42,18 @@ const AddSecrets = (props) => {
 
     const onSubmit = (values) => {
       console.log("Form data", values);
+
       dispatch(createSecret({values, userName}));
-    };
+  };
 
+    if (message) {
+      toast.error(message);
+    }
+  
 
+  if (isSuccess) {
+return <Navigate to="/" />;
+}
   
 
 
@@ -108,27 +116,7 @@ const Cont = styled.nav`
 const Box = styled.div`
   margin-bottom: 30px;
 `;
-const NoSecret = styled.div`
-  /* From https://css.glass */
-  background: rgb(0, 0, 0);
-  border-radius: 10px;
-  color: var(--white);
-  padding: 10px;
-  font-size: 15px;
-  font-weight: 100;
-  line-height: 140%;
-  text-align: left;
-  border-radius: 8px;
-  border-radius: 10px;
-  text-align: center;
-  margin: 20px;
-  letter-spacing: 2px;
-  padding: 30px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-`;
+
 
 const Wrap = styled.div`
   align-items: center;

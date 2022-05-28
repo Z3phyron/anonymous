@@ -1,4 +1,4 @@
-const { User } = require("../model/User");
+const { User, validate } = require("../model/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
@@ -13,9 +13,9 @@ const mailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 // @route   POST /api/auth
 // @access  Public
 const SignUpUser = asyncHandler(async (req, res) => {
-  const { userName, email, gender, password } = req.body;
+  const { userName, email, password } = req.body;
 
-  const { error } = User.validate(req.body);
+  const { error } = validate(userName, email, password);
   if (error) {
     res.status(400);
     throw new Error(error.details[0].message);

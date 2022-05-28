@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../utils/formik/FormikControl";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { forgotPassword } from "../../features/auth/authSlice";
+import { forgotPassword, reset } from "../../features/auth/authSlice";
 import { css } from "@emotion/react";
 import { BsCheck2Circle } from "react-icons/bs";
+import { toast } from "react-toastify";
 import PulseLoader from "react-spinners/PulseLoader";
 
 const override = css`
@@ -16,22 +17,30 @@ const override = css`
 `;
 
 const ForgotPassword = () => {
-  let [color, setColor] = useState("#000");
+  
+  let color = "#000"
   const initialValues = {
     email: "",
   };
 
   const dispatch = useDispatch();
 
-  const { user, isLoading, isSuccess } = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format").required("Required"),
   });
 
+    if (message) {
+      toast.error(message);
+    }
+
   const onSubmit = (values) => {
     console.log("Form data", values);
     dispatch(forgotPassword(values));
+    dispatch(reset());
   };
   return (
     <>
